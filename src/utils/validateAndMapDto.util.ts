@@ -1,6 +1,6 @@
+import { UnprocessableEntityException, ValidationError } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { ValidationError } from '@nestjs/common';
 
 export async function validateAndMapDto<T extends object>(
   data: any[],
@@ -19,7 +19,9 @@ export async function validateAndMapDto<T extends object>(
           Object.values(err.constraints).join(', '),
         )
         .join('; ');
-      throw new Error(`Validation failed: ${errorMessages}`);
+      throw new UnprocessableEntityException(
+        `Validation failed: ${errorMessages}`,
+      );
     }
 
     validatedResults.push(dto);
