@@ -28,7 +28,7 @@ export class ColumnsController {
     @Inject('IColumn')
     private readonly columnsService: IColumn,
   ) {}
-
+  // Решил не использовать такой подход GET /users/{id}/columns, так как для меня удобнее брать нужную информацию из jwt токене и срзу же ее использовать нежели в пути прописывать id пользователя
   @Get('all-columns')
   @ApiOkResponse({
     description: 'Возвращает список колонок пользователя или 204',
