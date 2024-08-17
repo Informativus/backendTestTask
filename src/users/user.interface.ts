@@ -1,6 +1,8 @@
+import { CreateUserDto } from 'src/Dto/user/createUser.dto';
 import { GetUserDto } from 'src/Dto/user/getUserDto.dto';
+import { TNewUser } from 'src/Types/newUser.type';
 
 export interface IUser {
   findByEmail(email: string): Promise<GetUserDto>;
-  create(email: string, hash: string, salt: string): Promise<void>;
+  create(createUserDto: CreateUserDto): Promise<TNewUser>;
 }

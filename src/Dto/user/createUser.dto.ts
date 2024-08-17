@@ -1,6 +1,6 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
-export class GetUserDto {
+export class CreateUserDto {
   @IsString()
   firstName: string;
   @IsString()
@@ -8,8 +8,6 @@ export class GetUserDto {
   @IsOptional()
   @IsString()
   middleName?: string;
-  @IsNumber()
-  id: number;
   @IsString()
   email: string;
   @IsString()
