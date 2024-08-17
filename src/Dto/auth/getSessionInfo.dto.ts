@@ -1,14 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsNumber } from 'class-validator';
 
 export class GetSessionInfoDto {
   @ApiProperty({ example: 1 })
   @IsNumber()
-  @Type(() => Number)
   id: number;
   @ApiProperty({ example: '123321@example.com' })
-  @IsString()
+  @IsEmail()
   email: string;
   @ApiProperty({ example: 0 })
   @IsNumber()

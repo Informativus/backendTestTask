@@ -7,7 +7,6 @@ import {
   HttpStatus,
   Inject,
   Post,
-  Query,
   Res,
   UseGuards,
   UsePipes,
@@ -70,7 +69,6 @@ export class AuthController {
   async getSessionInfo(
     @SessionInfo() session: GetSessionInfoDto,
   ): Promise<GetSessionInfoDto> {
-    console.log(session);
     return session;
   }
 }

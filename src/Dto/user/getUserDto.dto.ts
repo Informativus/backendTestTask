@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class GetUserDto {
   @IsString()
@@ -10,7 +10,7 @@ export class GetUserDto {
   middleName?: string;
   @IsNumber()
   id: number;
-  @IsString()
+  @IsEmail()
   email: string;
   @IsString()
   hash: string;
