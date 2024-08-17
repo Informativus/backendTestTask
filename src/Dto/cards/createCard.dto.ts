@@ -4,7 +4,7 @@ import { IsNumber, IsString } from 'class-validator';
 export class CreateCardDto {
   @ApiProperty({ example: 1 })
   @IsNumber()
-  userId: number;
+  columnId: number;
   @ApiProperty({ example: 'name' })
   @IsString()
   name: string;
