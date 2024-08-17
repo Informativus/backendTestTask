@@ -55,7 +55,7 @@ export class ColumnsService implements IColumn {
     }
   }
 
-  private async isExistsColumn(columnId: number): Promise<boolean> {
+  async isExistsColumn(columnId: number): Promise<boolean> {
     const columnCount: number =
       await this.columnGateway.getColumnById(columnId);
     return columnCount > 0;

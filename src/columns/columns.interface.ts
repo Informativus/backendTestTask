@@ -7,4 +7,5 @@ export interface IColumn {
   createColumn(column: CreateColumnDto): Promise<ColumnIdDto>;
   updateColumnName(column: ColumnDto): Promise<void>;
   deleteColumn(column: ColumnIdDto): Promise<void>;
+  isExistsColumn(columnId: number): Promise<boolean>;
 }

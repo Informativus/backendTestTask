@@ -12,12 +12,15 @@ import { CardIdDto } from 'src/Dto/cards/cardId.dto';
 import { CreateCardDto } from 'src/Dto/cards/createCard.dto';
 import { ColumnIdDto } from 'src/Dto/column/columnIdDto';
 import { ICardGateway } from './cardGateway/cardGateway.interface';
+import { IColumn } from 'src/columns/columns.interface';
 
 @Injectable()
 export class CardsService implements ICard {
   constructor(
     @Inject('ICardGateway')
     private readonly cardGateway: ICardGateway,
+    @Inject('IColumn')
+    private readonly columnService: IColumn,
   ) {}
   async getCardsByColumnId(columnId: ColumnIdDto): Promise<CardDto[]> {
     const cards: CardDto[] =
@@ -31,13 +34,13 @@ export class CardsService implements ICard {
   }
 
   async createCard(createCard: CreateCardDto): Promise<CardIdDto> {
-    if (!(await this.isExistsCard(createCard.columnId))) {
+    if (!(await this.columnService.isExistsColumn(createCard.columnId))) {
       throw new BadRequestException('Column not found');
     }
     const cardIds: CardIdDto[] = await this.cardGateway.createCard(createCard);
 
     if (cardIds.length === 0) {
-      throw new InternalServerErrorException('Failed to create column');
+      throw new InternalServerErrorException('Failed to create card');
     }
 
     return cardIds[0];
@@ -59,7 +62,7 @@ export class CardsService implements ICard {
     }
   }
 
-  private async isExistsCard(cardId: number): Promise<boolean> {
+  async isExistsCard(cardId: number): Promise<boolean> {
     const cardCount: number = await this.cardGateway.getCardById(cardId);
     return cardCount > 0;
   }

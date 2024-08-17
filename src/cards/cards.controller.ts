@@ -15,7 +15,6 @@ import {
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CardDto } from 'src/Dto/cards/card.dto';
 import { CardIdDto } from 'src/Dto/cards/cardId.dto';
-import { CardNameDto } from 'src/Dto/cards/cardName.dto';
 import { CreateCardDto } from 'src/Dto/cards/createCard.dto';
 import { ColumnIdDto } from 'src/Dto/column/columnIdDto';
 import { ICard } from './card.interface';
@@ -29,7 +28,7 @@ export class CardsController {
   ) {}
   @Get('all-column-cards')
   @ApiOkResponse({
-    description: 'Возвращает список карточек пользователя или 204',
+    description: 'Возвращает список карточек по колонке или 204',
     type: [ColumnIdDto],
   })
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -38,7 +37,7 @@ export class CardsController {
   }
 
   @Post('create-card')
-  @ApiCreatedResponse({ type: CardNameDto })
+  @ApiCreatedResponse({ type: CreateCardDto })
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ transform: true }))
   async createCard(@Body() createCard: CreateCardDto): Promise<CardIdDto> {

@@ -8,4 +8,5 @@ export interface ICard {
   createCard(createCard: CreateCardDto): Promise<CardIdDto>;
   updateCardName(card: CardDto): Promise<void>;
   deleteCard(cardId: CardIdDto): Promise<void>;
+  isExistsCard(cardId: number): Promise<boolean>;
 }

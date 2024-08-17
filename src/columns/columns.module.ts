@@ -24,5 +24,6 @@ import { AuthModule } from 'src/auth/auth.module';
       useExisting: RelationDbService,
     },
   ],
+  exports: [ColumnsService],
 })
 export class ColumnsModule {}
