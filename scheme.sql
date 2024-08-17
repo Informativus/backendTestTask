@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id serial PRIMARY KEY,
     first_name VARCHAR(64) NOT NULL,
     last_name VARCHAR(64) NOT NULL,
     middle_name VARCHAR(64),
@@ -9,22 +9,22 @@ CREATE TABLE users (
 );
 
 CREATE TABLE columns (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
+    id serial PRIMARY KEY,
+    user_id INT NOT NULL,
     name VARCHAR(64),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE cards (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    column_id INT,
+    id serial PRIMARY KEY,
+    column_id INT NOT NULL,
     name VARCHAR(128),
     FOREIGN KEY (column_id) REFERENCES columns(id)
 );
 
 CREATE TABLE comments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    card_id INT,
+    id serial PRIMARY KEY,
+    card_id INT NOT NULL,
     name TEXT,
     FOREIGN KEY (card_id) REFERENCES cards(id)
 );
