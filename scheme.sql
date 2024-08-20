@@ -3,7 +3,7 @@ CREATE TABLE users (
     first_name VARCHAR(64) NOT NULL,
     last_name VARCHAR(64) NOT NULL,
     middle_name VARCHAR(64),
-    email VARCHAR(128),
+    email VARCHAR(128) UNIQUE NOT NULL,
     hash VARCHAR(128) NOT NULL,
     salt VARCHAR(64) NOT NULL
 );
