@@ -6,10 +6,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: timetable
+      POSTGRES_DB: testBackend 
     ports:
       - '5434:5432'
     volumes:
       - db:/var/lib/postgresql/data
+      - ./scheme.sql:/docker-entrypoint-initdb.d/scheme.sql
 volumes:
   db:
