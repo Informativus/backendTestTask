@@ -1,4 +1,14 @@
 services:
+  backend:
+    image: test-backend:1.0
+    container_name: test-backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    networks:
+      - backend
+
   db:
     image: postgres:14.12
     restart: always
@@ -9,8 +19,16 @@ services:
       POSTGRES_DB: testBackend 
     ports:
       - '5434:5432'
+    networks:
+      - backend
     volumes:
       - db:/var/lib/postgresql/data
       - ./scheme.sql:/docker-entrypoint-initdb.d/scheme.sql
+
+networks:
+  backend:
+    name: backend 
+    driver: bridge
+
 volumes:
   db:
