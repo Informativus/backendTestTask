@@ -1,4 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreateUserDto } from 'src/Dto/user/createUser.dto';
 import { GetUserDto } from 'src/Dto/user/getUserDto.dto';
 import { IsValidDto } from 'src/validators/isValidDto.validator';
@@ -19,9 +23,14 @@ export class UsersService implements IUser {
 
   @IsValidDto(CreateUserDto)
   async create(createUserDto: CreateUserDto): Promise<TNewUser> {
-    const usersIds: number[] = await this.userGateway.create(createUserDto);
+    const usersIds: string[] = await this.userGateway.create(createUserDto);
+
+    if (!usersIds[0]) {
+      throw new InternalServerErrorException('Failed to create user');
+    }
+
     return {
-      id: usersIds[0],
+      email: usersIds[0],
     };
   }
 }

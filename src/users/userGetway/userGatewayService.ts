@@ -37,10 +37,10 @@ export class UserGatewayService implements IUserGateway {
     }
   }
 
-  async create(createUserDto: CreateUserDto): Promise<number[]> {
+  async create(createUserDto: CreateUserDto): Promise<string[]> {
     try {
       return await this.relationDb.sendQuery({
-        text: 'INSERT INTO users (email, hash, salt, first_name, last_name, middle_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
+        text: 'INSERT INTO users (email, hash, salt, first_name, last_name, middle_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING email',
         values: [
           createUserDto.email,
           createUserDto.hash,

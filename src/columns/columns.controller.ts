@@ -28,14 +28,15 @@ export class ColumnsController {
     @Inject('IColumn')
     private readonly columnsService: IColumn,
   ) {}
-  // Решил не использовать такой подход GET /users/{id}/columns, так как для меня удобнее брать нужную информацию из jwt токене и срзу же ее использовать нежели в пути прописывать id пользователя
   @Get('all-columns')
   @ApiOkResponse({
     description: 'Возвращает список колонок пользователя или 204',
     type: [ColumnDto],
   })
-  async getAllColumns(@SessionInfo('id') userId: number): Promise<ColumnDto[]> {
-    return await this.columnsService.getAllColumns(userId);
+  async getAllColumns(
+    @SessionInfo('email') email: string,
+  ): Promise<ColumnDto[]> {
+    return await this.columnsService.getAllColumns(email);
   }
 
   @Post('create-columns')
@@ -43,11 +44,11 @@ export class ColumnsController {
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ transform: true }))
   async createColumn(
-    @SessionInfo('id') userId: number,
+    @SessionInfo('email') email: string,
     @Body() nameDto: ColumnNameDto,
   ): Promise<ColumnIdDto> {
     return await this.columnsService.createColumn({
-      userId,
+      email,
       name: nameDto.name,
     });
   }

@@ -1,3 +1,3 @@
 export type TNewUser = {
-  id: number;
+  email: string;
 };

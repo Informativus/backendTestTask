@@ -3,7 +3,7 @@ import { CreateColumnDto } from 'src/Dto/column/createColumn.dto';
 import { ColumnIdDto } from 'src/Dto/column/columnIdDto';
 
 export interface IColumn {
-  getAllColumns(userId: number): Promise<ColumnDto[]>;
+  getAllColumns(email: string): Promise<ColumnDto[]>;
   createColumn(column: CreateColumnDto): Promise<ColumnIdDto>;
   updateColumnName(column: ColumnDto): Promise<void>;
   deleteColumn(column: ColumnIdDto): Promise<void>;

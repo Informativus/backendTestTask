@@ -11,10 +11,10 @@ export class ColumnGateway implements IColumnGateway {
     @Inject('IRelationDb')
     private readonly relationDb: IRelationDb,
   ) {}
-  async getAllColumns(userId: number): Promise<ColumnDto[]> {
+  async getAllColumns(email: string): Promise<ColumnDto[]> {
     const columns = await this.relationDb.sendQuery({
-      text: 'SELECT id, name FROM columns WHERE user_id = $1',
-      values: [userId],
+      text: 'SELECT id, name FROM columns WHERE user_id = (SELECT id FROM users WHERE email = $1)',
+      values: [email],
     });
 
     return validateAndMapDto(
@@ -30,8 +30,8 @@ export class ColumnGateway implements IColumnGateway {
 
   async createColumn(column: CreateColumnDto): Promise<ColumnIdDto[]> {
     const columnIds: ColumnIdDto[] = await this.relationDb.sendQuery({
-      text: 'INSERT INTO columns (user_id, name) VALUES ($1, $2) RETURNING id',
-      values: [column.userId, column.name],
+      text: 'INSERT INTO columns (user_id, name) VALUES ((SELECT id FROM users WHERE email = $1), $2) RETURNING id',
+      values: [column.email, column.name],
     });
 
     return validateAndMapDto(

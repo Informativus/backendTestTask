@@ -19,7 +19,6 @@ export class AuthService implements IAuth {
   constructor(
     @Inject('IUser')
     private readonly userService: IUser,
-    @Inject(PasswordService)
     private readonly passwordService: PasswordService,
     private readonly jwtService: JwtService,
   ) {}
@@ -47,8 +46,7 @@ export class AuthService implements IAuth {
     const newUser: TNewUser = await this.userService.create(createUserDto);
 
     const accessToken: string = await this.jwtService.signAsync({
-      id: newUser.id,
-      email: signUpDto.email,
+      email: newUser.email,
     });
 
     return { accessToken };
@@ -74,11 +72,11 @@ export class AuthService implements IAuth {
       });
     }
 
-    console.log(user.id, user.email);
     const accessToken: string = await this.jwtService.signAsync({
-      id: user.id,
       email: user.email,
     });
+
+    console.log(accessToken);
 
     return { accessToken };
   }

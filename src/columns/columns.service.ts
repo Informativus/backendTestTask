@@ -18,8 +18,8 @@ export class ColumnsService implements IColumn {
     @Inject('IColumnGateway')
     private readonly columnGateway: IColumnGateway,
   ) {}
-  async getAllColumns(userId: number): Promise<ColumnDto[]> {
-    const columns: ColumnDto[] = await this.columnGateway.getAllColumns(userId);
+  async getAllColumns(email: string): Promise<ColumnDto[]> {
+    const columns: ColumnDto[] = await this.columnGateway.getAllColumns(email);
 
     if (columns.length === 0) {
       throw new HttpException('No columns found', HttpStatus.NO_CONTENT);
